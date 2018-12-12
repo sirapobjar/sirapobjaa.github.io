@@ -1,0 +1,33 @@
+<!DOCTYPE html>  
+ 
+   <title>EasyAuth</title>  
+   <meta charset="UTF-8">  
+ </head>  
+ <!-- Below is the initialization snippet for my Firebase project. It will vary for each project -->  
+ <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>  
+ <script>  
+  // Initialize Firebase  
+  var config = {
+    apiKey: "AIzaSyClKf1proOivdaqE3cdGilbUv2i0V-DN-8",
+    authDomain: "kkuticket.firebaseapp.com",
+    databaseURL: "https://kkuticket.firebaseio.com",
+    projectId: "kkuticket",
+    storageBucket: "kkuticket.appspot.com",
+    messagingSenderId: "626171340552"
+  };firebase.initializeApp(config);
+ </script>  
+ <!-- The code below initializes the sign-in widget from FirebaseUI web. -->  
+ <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>  
+   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />  
+   <script type="text/javascript">  
+  
+
+    
+ </script>  
+ <!-- Include a simple background image & and title -->  
+  <div></div>  
+  <body>  
+       <h1 align="center" style="color:white;">Firebase Auth Quickstart Demo</h1>  
+        <div id="firebaseui-auth-container"></div>  
+  </body>  
+ </html>  

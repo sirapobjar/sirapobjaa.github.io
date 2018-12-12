@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KKUTICKET</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="script/script.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+
+  
+  
+  <body>
+
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top">
+        <a class="navbar-brand">KKU TICKET</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-center"
+          id="navbarNavAltMarkup"
+        >
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="index.html">หน้าหลัก</a>
+            <a class="nav-item nav-link" href="profile.html">ข้อมูลส่วนตัว</a>
+            <a class="nav-item nav-link" href="#">เข้าสู่ระบบ</a>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="box">
+            <div class="container">
+                <div id="carouselSlide" class="carousel slide" data-ride="carousel" data-interval="2000">
+                    <div class="carousel-inner" >
+                        <div class="carousel-item active">
+                            <img class="imgContent pointer" id="วิปลาส" data-toggle="collapse" href="#collapseStage"  src="img/viplas.png" class="img-fluid" alt="Responsive image First slide" style="max-width: 90%; ">
+                            <p class="default">คณะมนุษย์ศาสตร์และสังคมศาสตร์</p>
+                        </div>
+                  
+                        <div class="carousel-item">
+                            <img class="imgContent pointer" id="ILLEGAL" data-toggle="collapse" href="#collapseStage"  src="img/illegal.png"class="img-fluid" alt="Responsive Second slide" style="max-width: 90%;">
+                            <p class="default">คณะวิศวกรรมศาสตร์</p>
+                        </div>
+                        <div class="carousel-item">
+                            <img class="imgContent pointer" id="CONTROLLER" data-toggle="collapse" href="#collapseStage"  src="img/controller.png"class="img-fluid" alt="Responsive Third slide" style="max-width: 90%;">
+                            <p class="default">คณะบริหารธุรกิจและการบัญชี</p>
+                        </div>
+                         
+                        <a class="carousel-control-prev" href="#carouselSlide" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span></a>
+                        <a class="carousel-control-next" href="#carouselSlide" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span></a>
+                        <br></br>
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselSlide" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselSlide" data-slide-to="1"></li>
+                            <li data-target="#carouselSlide" data-slide-to="2"></li>
+                        </ol>
+                    </div>
+                </div>     
+            </div>
+       </div>
+       
+        <div class="collapse" id="collapseStage">
+            <div class="table-responsive-sm">
+                <div class="show">
+                    <h2 id="movieName" class="default"></h2>
+                        <div class="stageHeader" align="center">
+                            <form>
+                                วันที่แสดง
+                                <select id="show_day">
+                                    <option value="01-02-2019">01-02-2019</option>
+                                    <option value="02-02-2019">02-02-2019</option>
+                                    <option value="03-02-2019">03-02-2019</option>
+                                    <option value="04-02-2019">04-02-2019</option>
+                                </select>
+                                รอบฉาย
+                                <select id="show_time">
+                                    <option value="16.00 น.-19.30 น.">16.00 น.-19.30 น.</option>
+                                    <option value="20.00 น.-23.30 น.">20.00 น.-23.30 น.</option>
+                                </select>
+                            </form>
+                            <br>
+                            <button type="button" id="confirm">Confirm</button>
+                            <p id="stage" class="default">STAGE</p>
+                        </div>                      
+                            <table class="table borderless pointer">
+                                <thead>
+                                    <tr style = "border:none">
+                                        <th scope="col" style="border:none"> </th>
+                                        <th scope="col" style="border:none">1</th>
+                                        <th scope="col" style="border:none">2</th>
+                                        <th scope="col" style="border:none">3</th>
+                                        <th scope="col" style="border:none">4</th>
+                                        <th scope="col" style="border:none">5</th>
+                                        <th scope="col" style="border:none">6</th>
+                                        <th scope="col" style="border:none">7</th>
+                                        <th scope="col" style="border:none">8</th>
+                                        <th scope="col" style="border:none">9</th>
+                                        <th scope="col" style="border:none">10</th>
+                                        <th scope="col" style="border:none"> </th>
+                                        <th scope="col" style="border:none">11</th>
+                                        <th scope="col" style="border:none">12</th>
+                                        <th scope="col" style="border:none">13</th>
+                                        <th scope="col" style="border:none">14</th>
+                                        <th scope="col" style="border:none">15</th>
+                                        <th scope="col" style="border:none">16</th>
+                                        <th scope="col" style="border:none">17</th>
+                                        <th scope="col" style="border:none">18</th>
+                                        <th scope="col" style="border:none">19</th>
+                                        <th scope="col" style="border:none">20</th>
+                                        <th scope="col" style="border:none"> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">A</th>
+                                        <td class="seat" id="A1"></td>
+                                        <td class="seat"  id="A2"></td>
+                                        <td class="seat"  id="A3"></td>
+                                        <td id="A4"></td>
+                                        <td id="A5"></td>
+                                        <td id="A6"></td>
+                                        <td id="A7"></td>
+                                        <td id="A8"></td>
+                                        <td id="A9"></td>
+                                        <td id="A10"></td>
+                                        <td></td>
+                                        <td id="A11"></td>
+                                        <td id="A12"></td>
+                                        <td id="A13"></td>
+                                        <td id="A14"></td>
+                                        <td id="A15"></td>
+                                        <td id="A16"></td>
+                                        <td id="A17"></td>
+                                        <td id="A18"></td>
+                                        <td id="A19"></td>
+                                        <td id="A20"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">B</th>
+                                        <td id="B1"></td>
+                                        <td id="B2"></td>
+                                        <td id="B3"></td>
+                                        <td id="B4"></td>
+                                        <td id="B5"></td>
+                                        <td id="B6"></td>
+                                        <td id="B7"></td>
+                                        <td id="B8"></td>
+                                        <td id="B9"></td>
+                                        <td id="B10"></td>
+                                        <td></td>
+                                        <td id="B11"></td>
+                                        <td id="B12"></td>
+                                        <td id="B13"></td>
+                                        <td id="B14"></td>
+                                        <td id="B15"></td>
+                                        <td id="B16"></td>
+                                        <td id="B17"></td>
+                                        <td id="B18"></td>
+                                        <td id="B19"></td>
+                                        <td id="B20"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">C</th>
+                                        <td id="C1"></td>
+                                        <td id="C2"></td>
+                                        <td id="C3"></td>
+                                        <td id="C4"></td>
+                                        <td id="C5"></td>
+                                        <td id="C6"></td>
+                                        <td id="C7"></td>
+                                        <td id="C8"></td>
+                                        <td id="C9"></td>
+                                        <td id="C10"></td>
+                                        <td></td>
+                                        <td id="C11"></td>
+                                        <td id="C12"></td>
+                                        <td id="C13"></td>
+                                        <td id="C14"></td>
+                                        <td id="C15"></td>
+                                        <td id="C16"></td>
+                                        <td id="C17"></td>
+                                        <td id="C18"></td>
+                                        <td id="C19"></td>
+                                        <td id="C20"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">D</th>
+                                        <td id="D1"></td>
+                                        <td id="D2"></td>
+                                        <td id="D3"></td>
+                                        <td id="D4"></td>
+                                        <td id="D5"></td>
+                                        <td id="D6"></td>
+                                        <td id="D7"></td>
+                                        <td id="D8"></td>
+                                        <td id="D9"></td>
+                                        <td id="D10"></td>
+                                        <td></td>
+                                        <td id="D11"></td>
+                                        <td id="D12"></td>
+                                        <td id="D13"></td>
+                                        <td id="D14"></td>
+                                        <td id="D15"></td>
+                                        <td id="D16"></td>
+                                        <td id="D17"></td>
+                                        <td id="D18"></td>
+                                        <td id="D19"></td>
+                                        <td id="D20"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">E</th>
+                                        <td id="E1"></td>
+                                        <td id="E2"></td>
+                                        <td id="E3"></td>
+                                        <td id="E4"></td>
+                                        <td id="E5"></td>
+                                        <td id="E6"></td>
+                                        <td id="E7"></td>
+                                        <td id="E8"></td>
+                                        <td id="E9"></td>
+                                        <td id="E10"></td>
+                                        <td></td>
+                                        <td id="E11"></td>
+                                        <td id="E12"></td>
+                                        <td id="E13"></td>
+                                        <td id="E14"></td>
+                                        <td id="E15"></td>
+                                        <td id="E16"></td>
+                                        <td id="E17"></td>
+                                        <td id="E18"></td>
+                                        <td id="E19"></td>
+                                        <td id="E20"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">F</th>
+                                        <td id="F1"></td>
+                                        <td id="F2"></td>
+                                        <td id="F3"></td>
+                                        <td id="F4"></td>
+                                        <td id="F5"></td>
+                                        <td id="F6"></td>
+                                        <td id="F7"></td>
+                                        <td id="F8"></td>
+                                        <td id="F9"></td>
+                                        <td id="F10"></td>
+                                        <td></td>
+                                        <td id="F11"></td>
+                                        <td id="F12"></td>
+                                        <td id="F13"></td>
+                                        <td id="F14"></td>
+                                        <td id="F15"></td>
+                                        <td id="F16"></td>
+                                        <td id="F17"></td>
+                                        <td id="F18"></td>
+                                        <td id="F19"></td>
+                                        <td id="F20"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">G</th>
+                                        <td id="G1"></td>
+                                        <td id="G2"></td>
+                                        <td id="G3"></td>
+                                        <td id="G4"></td>
+                                        <td id="G5"></td>
+                                        <td id="G6"></td>
+                                        <td id="G7"></td>
+                                        <td id="G8"></td>
+                                        <td id="G9"></td>
+                                        <td id="G10"></td>
+                                        <td></td>
+                                        <td id="G11"></td>
+                                        <td id="G12"></td>
+                                        <td id="G13"></td>
+                                        <td id="G14"></td>
+                                        <td id="G15"></td>
+                                        <td id="G16"></td>
+                                        <td id="G17"></td>
+                                        <td id="G18"></td>
+                                        <td id="G19"></td>
+                                        <td id="G20"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">H</th>
+                                        <td id="H1"></td>
+                                        <td id="H2"></td>
+                                        <td id="H3"></td>
+                                        <td id="H4"></td>
+                                        <td id="H5"></td>
+                                        <td id="H6"></td>
+                                        <td id="H7"></td>
+                                        <td id="H8"></td>
+                                        <td id="H9"></td>
+                                        <td id="H10"></td>
+                                        <td></td>
+                                        <td id="H11"></td>
+                                        <td id="H12"></td>
+                                        <td id="H13"></td>
+                                        <td id="H14"></td>
+                                        <td id="H15"></td>
+                                        <td id="H16"></td>
+                                        <td id="H17"></td>
+                                        <td id="H18"></td>
+                                        <td id="H19"></td>
+                                        <td id="H20"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="firebaseui-auth-container"></div> 
+    <script>
+        //get the selected day and time of the show
+        document.getElementById("confirm").addEventListener('click', function () {
+                var day = document.getElementById("show_day").value;
+                var time = document.getElementById('show_time').value;
+                console.log(day);
+                console.log(time);
+        });
+    </script>
+
+    <script>
+  
+        var config = {
+          apiKey: "AIzaSyClKf1proOivdaqE3cdGilbUv2i0V-DN-8",
+          authDomain: "kkuticket.firebaseapp.com",
+          databaseURL: "https://kkuticket.firebaseio.com",
+          projectId: "kkuticket",
+          storageBucket: "kkuticket.appspot.com",
+          messagingSenderId: "626171340552"
+        };firebase.initializeApp(config);
+      
+        var selectedMovie = "";
+        var showDate = "";
+        var selectedRound = "";
+        var selectedSeat = "";
+        var selecteDate ="";
+        var status ="";
+        var user ="";
+
+        var database = firebase.database(); 
+        
+        $(document).ready(function() {
+        $("img").click(function() {
+          $(movieName).html(this.id);
+            $("td").css("background-color", "rgb(200, 200, 200)");
+            var ref = database.ref(this.id);
+            ref.on('value',gotData,errData);
+            selectedMovie = this.id;
+            checkSeat();
+           
+            //var test = document.querySelectorAll('.seat');
+            
+        });
+    });
+
+        function checkSeat() {
+        $(document).ready(function() {
+            $("td").click(function() {
+                if (this.id !== "") {
+                    var color = $(this).css( "background-color" );
+                    selectedSeat = this.id;
+                        if(color !== 'rgb(0, 128, 0)'){
+                        document.getElementById(selectedSeat).style.backgroundColor = "green";
+                        // authen();
+                        pushData();
+                        }
+                }
+            });
+        });
+    }
+
+        function gotData(obj) {
+            var movie = obj.val();
+            if(movie !== null) {
+                var keys = Object.keys(movie);
+                for(var i = 0 ; i < keys.length ;i++) {
+                    var k = keys[i];
+                    var gselectedSeat = movie[k].selectedSeat;
+                    setSeat(gselectedSeat);
+                }
+            }
+            
+        }
+        
+        function errData(err) {
+            console.log(err)
+        }
+      
+        function setSeat(seat) {
+          document.getElementById(seat).style.backgroundColor = "green";
+        }
+      
+        $(document).ready(function () {
+                      let now = new Date();
+                      let day = ("0" + now.getDate()).slice(-2);
+                      let month = ("0" + (now.getMonth() + 1)).slice(-2);
+                      let today = (day) + "-" + (month) + "-" + now.getFullYear();
+                      selecteDate = today;
+        });
+      
+        function pushData() {
+          firebase.database().ref().child(selectedMovie).push({
+            showDate,
+            selectedRound,
+            selectedSeat,
+            selecteDate,
+            status,
+            user}).key;
+        }
+      
+        function authen() {
+          var uiConfig = {  
+           signInSuccessUrl: 'index.html',  
+           signInOptions: [  
+            // Specify providers you want to offer your users.  
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.FacebookAuthProvider.PROVIDER_ID,  
+            firebase.auth.EmailAuthProvider.PROVIDER_ID  
+           ],  
+           // Terms of service url can be specified and will show up in the widget.  
+           tosUrl: '<your-tos-url>'  
+          };  
+          // Initialize the FirebaseUI Widget using Firebase.  
+          var ui = new firebaseui.auth.AuthUI(firebase.auth());  
+          // The start method will wait until the DOM is loaded.  
+          ui.start('#firebaseui-auth-container', uiConfig);  
+        }
+      
+        
+        </script>
+  </body>
+</html>
